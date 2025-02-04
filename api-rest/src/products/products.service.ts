@@ -19,8 +19,8 @@ export class ProductsService {
         return await this.productModel.find();
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} product`;
+    async findOne(id: number) {
+        return await this.productModel.findById(id).populate('category');
     }
 
     update(id: number, updateProductDto: UpdateProductDto) {
