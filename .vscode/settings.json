@@ -1,0 +1,52 @@
+{
+    "rest-client.environmentVariables": {
+        "local": {
+            "protocol": "http",
+            "version": "v1",
+            "host": "localhost",
+            "port": "4000",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoibS5vcnRlZ2EiLCJjb3JyZW8iOiJtLm9ydGVnYUBtYWlsLmNvbSIsImlhdCI6MTcyNTMzMzA1OX0.GhS0WqHSx3tMSXMEJXM5BJqN06Fec2lSshxaMtKPLaE"
+        },
+        "dev": {
+            "protocol": "http",
+            "version": "v1",
+            "host": "18.188.237.137",
+            "port": "4001",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoibS5vcnRlZ2EiLCJjb3JyZW8iOiJtLm9ydGVnYUBtYWlsLmNvbSIsImlhdCI6MTcyNTMzMzA1OX0.GhS0WqHSx3tMSXMEJXM5BJqN06Fec2lSshxaMtKPLaE"
+        },
+        "local-prod": {
+            "protocol": "http",
+            "version": "v1",
+            "host": "localhost",
+            "port": "4001",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoibS5vcnRlZ2EiLCJjb3JyZW8iOiJtLm9ydGVnYUBtYWlsLmNvbSIsImlhdCI6MTcyNTMzMzA1OX0.GhS0WqHSx3tMSXMEJXM5BJqN06Fec2lSshxaMtKPLaE"
+        }
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/build": true,
+        "**/dist": true,
+        "**/libs": true,
+        "**/.next": true,
+    },
+    "prettier.requireConfig": true,
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.ignoreLimitWarning": true,
+}
