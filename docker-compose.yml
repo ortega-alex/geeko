@@ -1,18 +1,30 @@
 services:
-  nexjs:
-    container_name: ${PROJECT_NAME}-nextjs
+  api-rest: 
+    container_name: ${PROJECT_NAME}-api-rest
+    restart: unless-stopped
+    build: 
+      context: ./api-rest
+      target: production
+      args:
+        - PORT=3000
+    ports:
+      - "${API_RES_PORT}:3000"
+    env_file:
+      - ./api-rest/.env.production
+    depends_on:
+      - db
+  e-commerce:
+    container_name: ${PROJECT_NAME}-e-commerce
     restart: unless-stopped
     build: 
       context: ./e-commerce
       target: production
       args:
-        - PORT=3000
+        - PORT=4000
     ports:
-      - "${PORT}:3000"     
+      - "${E_COMMERCE_PORT}:4000"     
     env_file:
       - .env
-    depends_on:
-      - db
   db:
     image: mongo
     container_name: ${PROJECT_NAME}-mongo

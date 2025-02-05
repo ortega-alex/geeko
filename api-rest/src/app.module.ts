@@ -12,7 +12,11 @@ import { UtilsService } from './utils/utils.service';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true
+            isGlobal: true,
+            envFilePath:
+                process.env.NODE_ENV === 'development'
+                    ? '.env.local'
+                    : '.env.production'
         }),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public')
