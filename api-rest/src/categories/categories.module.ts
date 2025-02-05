@@ -1,9 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { CategoriesService } from './categories.service';
-import { CategoriesController } from './categories.controller';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UtilsService } from 'src/utils/utils.service';
+import { CategoriesController } from './categories.controller';
+import { CategoriesService } from './categories.service';
 import { Category, CategorySchema } from './schema/categories.schema';
-import { AuthMiddleware } from 'src/auth/auth.middleware';
 
 @Module({
     imports: [
@@ -12,10 +12,11 @@ import { AuthMiddleware } from 'src/auth/auth.middleware';
         ])
     ],
     controllers: [CategoriesController],
-    providers: [CategoriesService]
+    providers: [CategoriesService, UtilsService],
+    exports: [
+        MongooseModule.forFeature([
+            { name: Category.name, schema: CategorySchema }
+        ])
+    ]
 })
-export class CategoriesModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes('categories');
-    }
-}
+export class CategoriesModule {}

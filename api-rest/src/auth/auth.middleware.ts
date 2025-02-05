@@ -4,17 +4,27 @@ import {
     Injectable,
     NestMiddleware
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-    use(req: Request, res: Response, next: () => void) {
+    constructor(private jwService: JwtService) {}
+
+    async use(req: Request, res: Response, next: () => void) {
         const { authorization } = req.headers;
-        if (!authorization)
+        const [type, token] = authorization?.split(' ') ?? [];
+        if (type !== 'Bearer' || !token)
             throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
 
-        if (authorization !== 'token')
+        try {
+            const payload = await this.jwService.verifyAsync(token, {
+                secret: String(process.env.JWT_SECRET) ?? ''
+            });
+            res['user'] = payload;
+        } catch (error) {
             throw new HttpException('Unauthorized', HttpStatus.FORBIDDEN);
+        }
 
         next();
     }

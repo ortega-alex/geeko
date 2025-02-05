@@ -1,4 +1,4 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateCategoryDto {
     @IsString()
@@ -10,5 +10,10 @@ export class CreateCategoryDto {
     description: string;
 
     @IsString()
-    imageUrl?: string;
+    @IsOptional()
+    imageUrl: string;
+
+    @IsBoolean()
+    @IsOptional()
+    isFeatured: boolean;
 }

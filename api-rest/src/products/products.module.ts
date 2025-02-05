@@ -1,21 +1,18 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { ProductsController } from './products.controller';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ProductsController } from './products.controller';
+import { ProductsService } from './products.service';
 import { Product, ProductSchema } from './schema/products.schema';
-import { AuthMiddleware } from 'src/auth/auth.middleware';
+import { CategoriesModule } from 'src/categories/categories.module';
 
 @Module({
     imports: [
         MongooseModule.forFeature([
             { name: Product.name, schema: ProductSchema }
-        ])
+        ]),
+        CategoriesModule
     ],
     controllers: [ProductsController],
     providers: [ProductsService]
 })
-export class ProductsModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes('products');
-    }
-}
+export class ProductsModule {}
