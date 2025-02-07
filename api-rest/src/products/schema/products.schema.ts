@@ -6,10 +6,10 @@ export type ProductSchema = HydratedDocument<Product>;
 
 @Schema({ timestamps: true, versionKey: false })
 export class Product {
-    @Prop()
+    @Prop({ required: true })
     title: string;
 
-    @Prop()
+    @Prop({ required: true })
     description: string;
 
     @Prop()
@@ -21,19 +21,16 @@ export class Product {
     @Prop()
     colors: string[];
 
-    @Prop()
+    @Prop({ type: Number, required: true })
     price: number;
 
-    @Prop()
+    @Prop({ type: Number, required: true })
     discountPrice: number;
 
-    @Prop()
+    @Prop({ type: Boolean, default: true })
     isAvailable: boolean;
 
-    @Prop()
-    imagesUrls: string[];
-
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Category.name })
     category: Category;
 }
 

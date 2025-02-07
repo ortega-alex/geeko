@@ -9,5 +9,6 @@ export type ProductType = {
     discountPrice?: number;
     isAvailable: boolean;
     imagesUrls?: string[];
+    image?: string;
     category?: string;
 };

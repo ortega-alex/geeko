@@ -40,21 +40,7 @@ export class CategoriesService {
         return await this.categoryModel.findByIdAndDelete(id);
     }
 
-    // async featured(more?: number) {
     async featured() {
-        // const categories = await this.categoryModel
-        //     .find()
-        //     .sort({ createdAt: -1 })
-        //     // .skip(Number(more ?? 0)) // Saltar las 3 categorías iniciales
-        //     .limit(5)
-        //     .populate({
-        //         path: Product.name,
-        //         // match: { isAvailable: true },
-        //         // options: { limit: 10, sort: { createdAt: -1 } },
-        //         select: 'title, price, descontPrice, imagesUrls',
-        //         strictPopulate: false
-        //     })
-        //     .lean();
         const categories = await this.categoryModel
             .aggregate([
                 {
@@ -62,7 +48,30 @@ export class CategoriesService {
                         from: 'products',
                         localField: '_id',
                         foreignField: 'category',
-                        as: 'products'
+                        as: 'products',
+                        pipeline: [
+                            {
+                                $match: {
+                                    isAvailable: true
+                                }
+                            },
+                            {
+                                $lookup: {
+                                    from: 'imagesproducts',
+                                    localField: '_id',
+                                    foreignField: 'product',
+                                    as: 'images'
+                                }
+                            },
+                            {
+                                $addFields: {
+                                    image: {
+                                        $arrayElemAt: ['$images.imageUrl', 0]
+                                    } // Obtener solo la primera imagen
+                                }
+                            },
+                            { $project: { images: 0 } } // Eliminar array de imágenes y dejar solo la primera
+                        ]
                     }
                 },
                 {

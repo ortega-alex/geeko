@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 import { useUserGetCategoriesFeatured } from '@/app/hooks';
 import { CategoryType } from '@/app/types';

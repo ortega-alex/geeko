@@ -8,9 +8,15 @@ import { AppService } from './app.service';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { UtilsService } from './utils/utils.service';
+import { ImagesProductsModule } from './images-products/images-products.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 @Module({
     imports: [
+        MulterModule.register({
+            storage: memoryStorage()
+        }),
         ConfigModule.forRoot({
             isGlobal: true
             // envFilePath:
@@ -30,7 +36,8 @@ import { UtilsService } from './utils/utils.service';
             signOptions: { expiresIn: '1d' }
         }),
         ProductsModule,
-        CategoriesModule
+        CategoriesModule,
+        ImagesProductsModule
     ],
     controllers: [],
     providers: [AppService, UtilsService],

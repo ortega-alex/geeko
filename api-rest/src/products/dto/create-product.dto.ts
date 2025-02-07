@@ -1,7 +1,6 @@
 import {
     IsArray,
     IsBoolean,
-    IsDecimal,
     IsMongoId,
     IsNotEmpty,
     IsNumber,
@@ -36,23 +35,18 @@ export class CreateProductDto {
     @IsOptional()
     colors: string[];
 
-    // @IsDecimal({ force_decimal: true, decimal_digits: '2' })
-    // @IsNotEmpty({ message: 'El precio es obligatorio' })
-    // @Min(0, { message: 'El precio debe ser mayor a 0' })
-    @IsNumber()
+    @IsNotEmpty({ message: 'El precio es obligatorio' })
+    @IsNumber({ maxDecimalPlaces: 2 })
+    @Min(0, { message: 'El precio debe ser mayor a 0' })
     price: number;
 
-    @IsDecimal({ force_decimal: true, decimal_digits: '2' })
     @IsOptional()
+    @IsNumber({ maxDecimalPlaces: 2 })
     discountPrice: number;
 
     @IsBoolean()
     @IsOptional()
     isAvailable: boolean;
-
-    @IsArray()
-    @IsOptional()
-    imagesUrls: string[];
 
     @IsMongoId()
     @IsNotEmpty({ message: 'La categoría es obligatoria' })

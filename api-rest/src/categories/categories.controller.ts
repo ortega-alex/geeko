@@ -48,7 +48,7 @@ export class CategoriesController {
         )
         file: Express.Multer.File
     ) {
-        const imageUrl = this.utilsService.saveFile(file);
+        const imageUrl = await this.utilsService.saveFile(file);
         return this.categoriesService.create({
             ...createCategoryDto,
             imageUrl,

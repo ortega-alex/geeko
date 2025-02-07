@@ -7,6 +7,7 @@ import { Card, CardContent } from './ui/card';
 import IconButton from './icon-button';
 import { Expand, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { commaSeparateNumber } from '@/app/utilities';
 
 type CategoriesProps = {
     categories: CategoryType;
@@ -25,15 +26,15 @@ const Reel = (props: CategoriesProps) => {
                     <CarouselContent className='-ml-2 md:-ml-4'>
                         {loading && <SkeletonSchema grid={6} />}
                         {categories.products?.map((product: ProductType) => (
-                            <CarouselItem key={product._id} className='basis-1/2 md:basis-1/5 lg:basis-1/6 group'>
+                            <CarouselItem key={product._id} className='md:basis-1/5 lg:basis-1/6 group'>
                                 <div className='p-1'>
-                                    <Card className='py-4 border border-gray-200 shadow-none'>
-                                        <CardContent className='relative flex items-center px-6 py-2'>
+                                    <Card className='py-4 border-l-0 border-t-0 shadow-[0_4px_6px_rgba(0,0,0,0.05),_0px_2px_4px_-1px_rgba(0,0,0,0.1)]'>
+                                        <CardContent className='relative flex flex-col items-center px-6 py-2'>
                                             <img
-                                                src={`${process.env.NEXT_PUBLIC_API_URL}/${product?.imagesUrls?.[0] || ''}`}
+                                                src={`${process.env.NEXT_PUBLIC_API_URL}/${product?.image ?? ''}`}
                                                 alt={`imagen product: ${product.title}`}
                                             />
-                                            <div className='absolute w-full px-6 transition duration-200 opacity-0 group-hover:opacity-100 bottom-5'>
+                                            <div className='w-full absolute transition duration-200 opacity-0 group-hover:opacity-100 bottom-5'>
                                                 <div className='flex justify-center gap-x-6'>
                                                     <IconButton
                                                         className='text-gray-600'
@@ -48,13 +49,24 @@ const Reel = (props: CategoriesProps) => {
                                                 </div>
                                             </div>
                                         </CardContent>
-                                        <div className='flex flex-col gap-1 px-2'>
+                                        <div className='flex flex-col px-2'>
                                             <p className='text-right text-gray-400 text-sm m-0 p-0'>ELEGIBLE PARA</p>
-                                            <p className='text-right text-sm m-0 p-0'>Entrega en 2h</p>
-                                            <p className='text-lg font-bold m-0 p-0'>{product.title}</p>
-                                            <div className='flex items-center justify-between gap-3 px-4'>
-                                                <p className='text-black dark:text-white'>{product.price}</p>
-                                                <p className='text-red-400'>{product.discountPrice ?? 'sin descuento'}</p>
+                                            <div className='w-auto flex justify-end'>
+                                                <div className='border px-5 py-1 bg-[#ff8a00] rounded-br-3xl rounded-tl-3xl'>
+                                                    <p className='text-right text-white text-sm m-0 p-0 '>Entrega en 2h</p>
+                                                </div>
+                                            </div>
+
+                                            <p className='text-lg font-bold m-0 p-0 '>{product.title}</p>
+                                            <div className='flex items-center justify-center gap-3'>
+                                                <p className='text-red-400'>
+                                                    Q {commaSeparateNumber(product.price - (product?.discountPrice ?? 0))}
+                                                </p>
+                                                {product?.discountPrice && (
+                                                    <p className='text-balck dark:text-white line-through'>
+                                                        Q {commaSeparateNumber(product.price)}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                     </Card>
@@ -62,8 +74,8 @@ const Reel = (props: CategoriesProps) => {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext className='hidden sm:flex' />
+                    <CarouselPrevious className='scale-125' />
+                    <CarouselNext className='hidden sm:flex scale-125' />
                 </Carousel>
             </div>
         </div>
