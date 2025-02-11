@@ -8,6 +8,7 @@ import IconButton from './icon-button';
 import { Expand, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { commaSeparateNumber } from '@/app/utilities';
+import { Environment } from '@/app/models';
 
 type CategoriesProps = {
     categories: CategoryType;
@@ -31,7 +32,7 @@ const Reel = (props: CategoriesProps) => {
                                     <Card className='py-4 border-l-0 border-t-0 shadow-[0_4px_6px_rgba(0,0,0,0.05),_0px_2px_4px_-1px_rgba(0,0,0,0.1)]'>
                                         <CardContent className='relative flex flex-col items-center px-6 py-2'>
                                             <img
-                                                src={`${process.env.NEXT_PUBLIC_API_URL}/${product?.image ?? ''}`}
+                                                src={`${Environment.API_URLl}/${product?.image ?? ''}`}
                                                 alt={`imagen product: ${product.title}`}
                                             />
                                             <div className='w-full absolute transition duration-200 opacity-0 group-hover:opacity-100 bottom-5'>
