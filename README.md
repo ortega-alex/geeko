@@ -1,4 +1,4 @@
-![](./docs/images/conteiner.png)
+![https://github.com/ortega-alex/geeko/blob/main/doc/images/container.png](./doc/images/container.png)
 
 # Geeko
 
