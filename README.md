@@ -2,7 +2,7 @@
 
 # Geeko
 
-Geeko is a simple e-commerce platform built with Next.js, Nest.js and MongoDB.
+Geeko is a simple e-commerce platform built with Next.js and MongoDB.
 
 ## 📝 Table of Contents
 
